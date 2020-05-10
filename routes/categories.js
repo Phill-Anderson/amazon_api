@@ -1,40 +1,18 @@
 const express = require("express");
+const {
+  getCategories,
+  getCategory,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} = require("../controller/categories");
 const router = express.Router();
-
-// route
-router.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    data: "Бүх категориудыг энд өгнө",
-  });
-});
-
-router.get("/:id", (req, res) => {
-  res.status(200).json({
-    success: true,
-    data: `${req.params.id} ID-тэй категорийн мэдээллийг өгнө`,
-  });
-});
-
-router.post("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    data: "Шинээр категори үүсгэх",
-  });
-});
-
-router.put("/:id", (req, res) => {
-  res.status(200).json({
-    success: true,
-    data: `${req.params.id} ID-тэй категорийг өөрчилнө`,
-  });
-});
-
-router.delete("/:id ", (req, res) => {
-  res.status(200).json({
-    success: true,
-    data: `${req.params.id} ID-тэй категорийг устгана`,
-  });
-});
-
+// router.route() энэ функцэд байгаа зам нь  api/v1/categories - гэсэн route - ийн араас жишээ нь router.route("/") гэсэн байвал  api/v1/categories/ байвал гэсэн нөхцөлийг шалгаж байна.
+// server.js дээр гэж тохируулсан: app.use("/api/v1/categories", categoriesRoutes);
+router.route("/").get(getCategories).post(createCategory);
+router
+  .route("/:id")
+  .get(getCategory)
+  .put(updateCategory)
+  .delete(deleteCategory);
 module.exports = router;
