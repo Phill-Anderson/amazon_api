@@ -22,6 +22,8 @@ const connectDB = async () => {
     .catch((err) => {
       console.log(err.message);
     }); */
-  console.log(`MongoDB холбогдлоо: ${conn.connection.host}`);
+  console.log(
+    `MongoDB холбогдлоо: ${conn.connection.host}`.underline.cyan.bold
+  );
 };
 module.exports = connectDB;
