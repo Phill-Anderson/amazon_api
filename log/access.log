@@ -1,0 +1,3 @@
+::1 - - [11/May/2020:02:16:07 +0000] "DELETE /api/v1/categories/23 HTTP/1.1" 200 74 "-" "PostmanRuntime/7.24.1"
+::1 - - [11/May/2020:02:16:10 +0000] "GET /api/v1/categories/23 HTTP/1.1" 200 90 "-" "PostmanRuntime/7.24.1"
+::1 - - [11/May/2020:02:16:13 +0000] "POST /api/v1/categories/23 HTTP/1.1" 404 160 "-" "PostmanRuntime/7.24.1"
