@@ -1,5 +1,6 @@
 const Category = require("../models/Category");
 // контроллер функцуудээ middleware хэлбэрээр бичнэ
+const MyError = require("../utils/myError");
 // try catch хэсэг болгон дээр алдаа барих хэсэгт кодууд олон давтагдаж бичигдэж байгааг express - ийн next(err) функцийг бичиж өгч мөн өөрийн error middleware - ийг бичиж server дээрээ дуудаж өгснөөр шийдэв
 exports.getCategories = async (req, res, next) => {
   try {
@@ -15,11 +16,9 @@ exports.getCategories = async (req, res, next) => {
 exports.getCategory = async (req, res, next) => {
   try {
     const category = await Category.findById(req.params.id);
+    // category null эсэхийг шалгана
     if (!category) {
-      return res.status(400).json({
-        success: false,
-        error: req.params.id + " id-тэй категор байхгүй.",
-      });
+      throw new MyError(req.params.id + " id-тэй категор байхгүй.", 400);
     }
     res.status(200).json({
       success: true,
@@ -48,10 +47,7 @@ exports.updateCategory = async (req, res, next) => {
       runValidators: true, // модел дээр бичигдсэн шалгалтуудыг шалгана
     });
     if (!category) {
-      return res.status(400).json({
-        success: false,
-        error: req.params.id + " id-тэй категор байхгүй.",
-      });
+      throw new MyError(req.params.id + " id-тэй категор байхгүй.", 400);
     }
     res.status(200).json({
       success: true,
@@ -65,10 +61,7 @@ exports.deleteCategory = async (req, res, next) => {
   try {
     const category = await Category.findByIdAndDelete(req.params.id);
     if (!category) {
-      return res.status(400).json({
-        success: false,
-        error: req.params.id + " id-тэй категор байхгүй.",
-      });
+      throw new MyError(req.params.id + " id-тэй категор байхгүй.", 400);
     }
     res.status(200).json({
       success: true,
