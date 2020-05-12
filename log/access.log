@@ -71,3 +71,7 @@
 ::1 - - [12/May/2020:04:06:19 +0000] "GET /api/v1/categories/5eb9238708688d69948b6386wdwd HTTP/1.1" 500 133 "-" "PostmanRuntime/7.24.1"
 ::1 - - [12/May/2020:05:24:02 +0000] "GET /api/v1/categories/5eb920b008688d69948b6384 HTTP/1.1" 200 262 "-" "PostmanRuntime/7.24.1"
 ::1 - - [12/May/2020:05:24:19 +0000] "GET /api/v1/categories/5eb920b008688d69948b6382 HTTP/1.1" 400 93 "-" "PostmanRuntime/7.24.1"
+::1 - - [12/May/2020:05:43:46 +0000] "GET /api/v1/categories/5eb920b008688d69948b638s HTTP/1.1" 500 129 "-" "PostmanRuntime/7.24.1"
+::1 - - [12/May/2020:05:44:02 +0000] "GET /api/v1/categories/5eb920b008688d69948b6382 HTTP/1.1" 400 93 "-" "PostmanRuntime/7.24.1"
+::1 - - [12/May/2020:05:44:12 +0000] "GET /api/v1/categories/5eb920b008688d69948b6384 HTTP/1.1" 200 262 "-" "PostmanRuntime/7.24.1"
+::1 - - [12/May/2020:05:57:04 +0000] "GET /api/v1/categories/5eb920b008688d69948b638s HTTP/1.1" 500 129 "-" "PostmanRuntime/7.24.1"
