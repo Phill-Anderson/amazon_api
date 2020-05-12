@@ -16,7 +16,8 @@
     "express-async-handler": "^1.1.4",
     "mongoose": "^5.9.13",
     "morgan": "^1.10.0",
-    "rotating-file-stream": "^2.1.0"
+    "rotating-file-stream": "^2.1.0",
+    "transliteration": "^2.1.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

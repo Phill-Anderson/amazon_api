@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
-
+const { transliterate, slugify } = require("transliteration");
 const CategorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Категорын нэрийг оруулна уу"],
     unique: true,
     trim: true,
-    maxlength: [12, "Категорын нэрний урт дээд тал нь 12 тэмдэгт байх ёстой"],
+    maxlength: [20, "Категорын нэрний урт дээд тал нь 20 тэмдэгт байх ёстой"],
   },
+  slug: String,
   description: {
     type: String,
     required: [true, "Категорын тайлбарыг заавал оруулах ёстой"],
@@ -32,5 +33,11 @@ const CategorySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+CategorySchema.pre("save", function (next) {
+  console.log("pre...");
+  //pre функц доторх this түлхүүр үг нь save хийж буй обьектын тухайн талбарыг зааж байдаг
+  this.slug = slugify(this.name);
+  next();
 });
 module.exports = mongoose.model("Category", CategorySchema);
