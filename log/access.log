@@ -67,3 +67,5 @@
 ::1 - - [12/May/2020:03:43:37 +0000] "GET /api/v1/categories HTTP/1.1" 200 481 "-" "PostmanRuntime/7.24.1"
 ::1 - - [12/May/2020:03:44:19 +0000] "POST /api/v1/categories HTTP/1.1" 200 68 "-" "PostmanRuntime/7.24.1"
 ::1 - - [12/May/2020:03:44:30 +0000] "POST /api/v1/categories HTTP/1.1" 400 952 "-" "PostmanRuntime/7.24.1"
+::1 - - [12/May/2020:04:05:36 +0000] "GET /api/v1/categories/5eb9238708688d69948b6386wdwd HTTP/1.1" 500 133 "-" "PostmanRuntime/7.24.1"
+::1 - - [12/May/2020:04:06:19 +0000] "GET /api/v1/categories/5eb9238708688d69948b6386wdwd HTTP/1.1" 500 133 "-" "PostmanRuntime/7.24.1"

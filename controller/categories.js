@@ -1,5 +1,6 @@
 const Category = require("../models/Category");
 // контроллер функцуудээ middleware хэлбэрээр бичнэ
+// try catch хэсэг болгон дээр алдаа барих хэсэгт кодууд олон давтагдаж бичигдэж байгааг express - ийн next(err) функцийг бичиж өгч мөн өөрийн error middleware - ийг бичиж server дээрээ дуудаж өгснөөр шийдэв
 exports.getCategories = async (req, res, next) => {
   try {
     const categories = await Category.find();
@@ -8,10 +9,7 @@ exports.getCategories = async (req, res, next) => {
       data: categories,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-      error: err,
-    });
+    next(err);
   }
 };
 exports.getCategory = async (req, res, next) => {
@@ -28,10 +26,7 @@ exports.getCategory = async (req, res, next) => {
       data: category,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-      error: err,
-    });
+    next(err);
   }
 };
 exports.createCategory = async (req, res, next) => {
@@ -43,10 +38,7 @@ exports.createCategory = async (req, res, next) => {
       data: `Шинээр категор үүсгэнэ`,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-      error: err,
-    });
+    next(err);
   }
 };
 exports.updateCategory = async (req, res, next) => {
@@ -66,10 +58,7 @@ exports.updateCategory = async (req, res, next) => {
       data: category,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-      error: err,
-    });
+    next(err);
   }
 };
 exports.deleteCategory = async (req, res, next) => {
@@ -86,9 +75,6 @@ exports.deleteCategory = async (req, res, next) => {
       data: category,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-      error: err,
-    });
+    next(err);
   }
 };
