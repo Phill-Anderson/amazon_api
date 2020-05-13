@@ -5,7 +5,8 @@ const MyError = require("../utils/myError");
 const asyncHandler = require("express-async-handler");
 // try catch хэсэг болгон дээр алдаа барих хэсэгт кодууд олон давтагдаж бичигдэж байгааг express - ийн next(err) функцийг бичиж өгч мөн өөрийн error middleware - ийг бичиж server дээрээ дуудаж өгснөөр шийдэв
 exports.getCategories = asyncHandler(async (req, res, next) => {
-  const categories = await Category.find();
+  console.log(req.query); // url дээрх ? query - ийг дамжуулдаг
+  const categories = await Category.find(req.query);
   res.status(200).json({
     success: true,
     data: categories,
