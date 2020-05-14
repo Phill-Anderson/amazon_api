@@ -5,11 +5,37 @@ const MyError = require("../utils/myError");
 const asyncHandler = require("express-async-handler");
 // try catch хэсэг болгон дээр алдаа барих хэсэгт кодууд олон давтагдаж бичигдэж байгааг express - ийн next(err) функцийг бичиж өгч мөн өөрийн error middleware - ийг бичиж server дээрээ дуудаж өгснөөр шийдэв
 exports.getCategories = asyncHandler(async (req, res, next) => {
-  console.log(req.query); // url дээрх ? query - ийг дамжуулдаг
-  const categories = await Category.find(req.query);
+  const page = parseInt(req.query.page) || 1;
+  delete req.query.page;
+
+  const limit = parseInt(req.query.limit);
+  delete req.query.limit;
+
+  const sort = req.query.sort;
+  delete req.query.sort;
+
+  const select = req.query.select;
+  delete req.query.select;
+
+  //Pagination
+  const total = await Category.countDocuments();
+  const pageCount = Math.ceil(total / limit);
+  const start = (page - 1) * limit + 1;
+  let end = start + limit - 1;
+  if (end > total) end = total;
+
+  const pagination = { total, pageCount, start, end };
+  if (page < pageCount) pagination.nextPage = page + 1;
+  if (page > 1) pagination.prevPage = page - 1;
+  console.log(req.query, select, sort); // url дээрх ? query - ийг дамжуулдаг
+  const categories = await Category.find(req.query, select)
+    .sort(sort)
+    .skip(start - 1)
+    .limit(limit);
   res.status(200).json({
     success: true,
     data: categories,
+    pagination,
   });
 });
 exports.getCategory = asyncHandler(async (req, res, next) => {
