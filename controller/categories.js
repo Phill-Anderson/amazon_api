@@ -74,12 +74,12 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteCategory = asyncHandler(async (req, res, next) => {
-  const category = await Category.findByIdAndDelete(req.params.id);
+  const category = await Category.findById(req.params.id);
 
   if (!category) {
     throw new MyError(req.params.id + " ID-тэй категори байхгүйээээ.", 400);
   }
-
+  category.remove(); // CategorySchema.pre('remove') middleware -ийг дуудаж байгаа нь
   res.status(200).json({
     success: true,
     data: category,

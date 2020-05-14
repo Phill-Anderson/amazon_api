@@ -45,6 +45,11 @@ CategorySchema.virtual("books", {
   foreignField: "category",
   justOne: false,
 });
+CategorySchema.pre("remove", async function (next) {
+  console.log("removing ...");
+  await this.model("Book").deleteMany({ category: this._id });
+  next();
+});
 CategorySchema.pre("save", function (next) {
   // name хөрвүүлэх
   this.slug = slugify(this.name);
