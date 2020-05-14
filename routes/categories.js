@@ -1,4 +1,6 @@
 const express = require("express");
+const router = express.Router();
+
 const {
   getCategories,
   getCategory,
@@ -6,13 +8,21 @@ const {
   updateCategory,
   deleteCategory,
 } = require("../controller/categories");
-const router = express.Router();
-// router.route() энэ функцэд байгаа зам нь  api/v1/categories - гэсэн route - ийн араас жишээ нь router.route("/") гэсэн байвал  api/v1/categories/ байвал гэсэн нөхцөлийг шалгаж байна.
-// server.js дээр гэж тохируулсан: app.use("/api/v1/categories", categoriesRoutes);
+
+// const { getBooks } = require("../controller/books");
+// /api/v1/categories/:id/books
+// router.route("/:categoryId/books").get(getBooks);
+
+const booksRouter = require("./books");
+router.use("/:categoryId/books", booksRouter);
+
+//"/api/v1/categories"
 router.route("/").get(getCategories).post(createCategory);
+
 router
   .route("/:id")
   .get(getCategory)
   .put(updateCategory)
   .delete(deleteCategory);
+
 module.exports = router;
