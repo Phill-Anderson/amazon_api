@@ -1,4 +1,5 @@
 const Book = require("../models/Book");
+const Category = require("../models/Category");
 const MyError = require("../utils/myError");
 const asyncHandler = require("express-async-handler");
 
@@ -13,7 +14,7 @@ exports.getBooks = asyncHandler(async (req, res, next) => {
     query = Book.find().populate({
       path: "category",
       select: "name averagePrice",
-    }); // category -ийн харгалзах өгөгдлүүдийг book рүү татаж авчирна
+    });
   }
 
   const books = await query;
@@ -22,5 +23,59 @@ exports.getBooks = asyncHandler(async (req, res, next) => {
     success: true,
     count: books.length,
     data: books,
+  });
+});
+
+exports.getBook = asyncHandler(async (req, res, next) => {
+  const book = await Book.findById(req.params.id);
+
+  if (!book) {
+    throw new MyError(req.params.id + " ID-тэй ном байхгүй байна.", 404);
+  }
+
+  res.status(200).json({
+    success: true,
+    data: book,
+  });
+});
+exports.createBook = asyncHandler(async (req, res, next) => {
+  const category = await Category.findById(req.body.category);
+
+  if (!category) {
+    throw new MyError(req.body.category + " ID-тэй категори байхгүй!", 400);
+  }
+
+  const book = await Book.create(req.body);
+
+  res.status(200).json({
+    success: true,
+    data: book,
+  });
+});
+exports.updateBook = asyncHandler(async (req, res, next) => {
+  const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!book) {
+    throw new MyError(req.params.id + " ID-тэй ном байхгүй ээ.", 400);
+  }
+
+  res.status(200).json({
+    success: true,
+    data: book,
+  });
+});
+exports.deleteBook = asyncHandler(async (req, res, next) => {
+  const book = await Book.findById(req.params.id);
+
+  if (!book) {
+    throw new MyError(req.params.id + " ID-тэй ном байхгүй байна.", 404);
+  }
+  book.remove(); // BookSchema.pre('remove') middleware -ийг дуудаж байгаа нь
+  res.status(200).json({
+    success: true,
+    data: book,
   });
 });

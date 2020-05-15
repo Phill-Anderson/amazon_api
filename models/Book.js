@@ -60,12 +60,13 @@ const BookSchema = new mongoose.Schema(
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-//virtuaл талбар
 BookSchema.virtual("zohiogch").get(function () {
+  // this.author
   let tokens = this.author.split(" ");
   if (tokens.length === 1) tokens = this.author.split(".");
   if (tokens.length === 2) return tokens[1];
 
   return tokens[0];
 });
+
 module.exports = mongoose.model("Book", BookSchema);

@@ -1,10 +1,18 @@
 const express = require("express");
 
-const { getBooks } = require("../controller/books");
+const {
+  getBooks,
+  getBook,
+  createBook,
+  updateBook,
+  deleteBook,
+} = require("../controller/books");
 
 const router = express.Router({ mergeParams: true });
 
 //"/api/v1/books"
-router.route("/").get(getBooks);
+router.route("/").get(getBooks).post(createBook);
+
+router.route("/:id").get(getBook).delete(deleteBook).put(updateBook);
 
 module.exports = router;
