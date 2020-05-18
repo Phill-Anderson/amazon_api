@@ -7,6 +7,7 @@ const colors = require("colors");
 const errorHandler = require("./middleware/error");
 var morgan = require("morgan");
 const logger = require("./middleware/logger");
+const fileupload = require("express-fileupload");
 // Router оруулж ирэх
 const categoriesRoutes = require("./routes/categories");
 const booksRoutes = require("./routes/books");
@@ -26,6 +27,7 @@ var accessLogStream = rfs.createStream("access.log", {
 
 // Body parser
 app.use(express.json());
+app.use(fileupload());
 app.use(logger);
 app.use(morgan("combined", { stream: accessLogStream }));
 app.use("/api/v1/categories", categoriesRoutes);
