@@ -9,7 +9,7 @@ const {
   uploadBookPhoto,
 } = require("../controller/books");
 
-const router = express.Router({ mergeParams: true });
+const router = express.Router();
 
 //"/api/v1/books"
 router.route("/").get(getBooks).post(createBook);

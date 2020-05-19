@@ -510,3 +510,8 @@
 ::1 - - [18/May/2020:10:38:37 +0000] "GET /api/v1/books HTTP/1.1" 200 31675 "-" "PostmanRuntime/7.24.1"
 ::1 - - [18/May/2020:10:47:26 +0000] "GET /api/v1/books HTTP/1.1" 200 31652 "-" "PostmanRuntime/7.24.1"
 ::1 - - [18/May/2020:10:47:41 +0000] "PUT /api/v1/books/5ebdfd98fc707219e0ee68e8/photo HTTP/1.1" 200 60 "-" "PostmanRuntime/7.24.1"
+::1 - - [19/May/2020:00:27:13 +0000] "GET /api/v1/categories?select=name%20averagePrice%20averageRating&sort=averageRating%20-averagePrice&limit=3&page=1 HTTP/1.1" 200 511 "-" "PostmanRuntime/7.24.1"
+::1 - - [19/May/2020:00:27:28 +0000] "GET /api/v1/categories?select=name%20averagePrice%20averageRating&sort=averageRating%20-averagePrice&limit=3&page=2 HTTP/1.1" 200 243 "-" "PostmanRuntime/7.24.1"
+::1 - - [19/May/2020:00:27:32 +0000] "GET /api/v1/categories?select=name%20averagePrice%20averageRating&sort=averageRating%20-averagePrice&limit=3&page=1 HTTP/1.1" 200 511 "-" "PostmanRuntime/7.24.1"
+::1 - - [19/May/2020:00:51:52 +0000] "GET /api/v1/categories?select=name%20averagePrice%20averageRating&sort=averageRating%20-averagePrice&limit=3&page=1 HTTP/1.1" 200 511 "-" "PostmanRuntime/7.24.1"
+::1 - - [19/May/2020:00:51:54 +0000] "GET /api/v1/categories HTTP/1.1" 200 1419 "-" "PostmanRuntime/7.24.1"
