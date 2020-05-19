@@ -5,10 +5,14 @@ const paginate = require("../utils/paginate");
 
 //register
 exports.register = asyncHandler(async (req, res, next) => {
+  // create функц бол статик функц
   const user = await User.create(req.body);
-
+  // үүсгэгдсэн нэгж обьектоос дуудагдаж буй функц нь метод функц юм.
+  const jwt = user.getJsonWebToken();
+  console.log("ирсэн token: ", jwt);
   res.status(200).json({
     success: true,
-    user,
+    jwt,
+    user: user,
   });
 });
