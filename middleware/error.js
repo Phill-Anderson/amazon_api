@@ -14,6 +14,10 @@ const errorHandler = (err, req, res, next) => {
     error.message = "Энэ талбарын утгыг давхардуулж өгч болохгүй!";
     error.statusCode = 400;
   }
+  if (error.name === "JsonWebTokenError" && error.message === "invalid token") {
+    error.message = "Буруу бүтэцтэй токен дамжуулсан байна!";
+    error.statusCode = 400;
+  }
 
   res.status(err.statusCode || 500).json({
     success: false,
