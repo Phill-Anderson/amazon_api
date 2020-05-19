@@ -562,3 +562,5 @@
 ::1 - - [19/May/2020:05:25:24 +0000] "POST /api/v1/users HTTP/1.1" 200 242 "-" "PostmanRuntime/7.24.1"
 ::1 - - [19/May/2020:05:27:04 +0000] "POST /api/v1/users HTTP/1.1" 200 244 "-" "PostmanRuntime/7.24.1"
 ::1 - - [19/May/2020:05:28:33 +0000] "POST /api/v1/users HTTP/1.1" 200 426 "-" "PostmanRuntime/7.24.1"
+::1 - - [19/May/2020:07:55:09 +0000] "POST /api/v1/users/login HTTP/1.1" 200 441 "-" "PostmanRuntime/7.24.1"
+::1 - - [19/May/2020:07:55:14 +0000] "POST /api/v1/users/login HTTP/1.1" 401 123 "-" "PostmanRuntime/7.24.1"

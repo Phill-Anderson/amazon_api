@@ -50,6 +50,9 @@ UserSchema.methods.getJsonWebToken = function () {
   });
   return token;
 };
+UserSchema.methods.checkPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 /* 
 UserSchema.statics.myStaticFunction = function(){}; */
 module.exports = mongoose.model("User", UserSchema);
