@@ -87,6 +87,8 @@ exports.createBook = asyncHandler(async (req, res, next) => {
   if (!category) {
     throw new MyError(req.body.category + " ID-тэй категори байхгүй!", 400);
   }
+  // protect.js дээр логин хийх үед хэрэглэгчийн id-ийг токеноос авч req.userId -нд олгосон ба үүнийг шинээр createUser талбар үүсгэн бааз руу нэмэхээр бэлтгэнэ.
+  req.body.createUser = req.userId;
 
   const book = await Book.create(req.body);
 
@@ -115,6 +117,7 @@ exports.deleteBook = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateBook = asyncHandler(async (req, res, next) => {
+  req.body.updateUser = req.userId;
   const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -127,7 +130,6 @@ exports.updateBook = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: book,
-    updatedUserId: req.userId,
   });
 });
 
