@@ -5,10 +5,13 @@ const errorHandler = (err, req, res, next) => {
 
   error.message = err.message;
 
+  /* 
+    алдааны орчуулгыг хийхдээ алдааны нэрээр барьж авах нь дутагдалтай 
+    харин алдааны error.code - оор нь юмуу эсвэл message - ны утгаар нь барьж аван орчуулвал үр дүнтэй
   if (error.name === "CastError") {
     error.message = "Энэ ID буруу бүтэцтэй ID байна!";
     error.statusCode = 400;
-  }
+  } */
 
   if (error.code === 11000) {
     error.message = "Энэ талбарын утгыг давхардуулж өгч болохгүй!";
