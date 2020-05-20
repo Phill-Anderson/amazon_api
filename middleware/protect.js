@@ -17,6 +17,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
     throw new MyError("Токен байхгүй байна.", 400);
   }
   const tokenObj = jwt.verify(token, process.env.JWT_SECRET);
-  req.user = await User.findById(tokenObj.id);
+  //req.user = await User.findById(tokenObj.id);
+  req.userId = tokenObj.id; // хэрэглэгчийн id - ийг баазаас шүүх бус харин token дотроосоо авч байна. ингэснээр protect middleware ажиллах болгонд userId - ийг баазаас шүүх шаардлагагүй болох юм.
   next(); // дараачийн middleware руу ажиллуул
 });
