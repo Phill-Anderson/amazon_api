@@ -1,5 +1,6 @@
 const express = require("express");
 const { protect, authorize } = require("../middleware/protect");
+
 const {
   getBooks,
   getBook,
@@ -20,7 +21,7 @@ router
 router
   .route("/:id")
   .get(getBook)
-  .delete(protect, authorize("admin"), deleteBook)
+  .delete(protect, authorize("admin", "operator"), deleteBook)
   .put(protect, authorize("admin", "operator"), updateBook);
 
 router

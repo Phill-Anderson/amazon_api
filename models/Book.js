@@ -51,10 +51,12 @@ const BookSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
+
     createUser: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
     },
+
     updateUser: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
@@ -97,6 +99,7 @@ BookSchema.post("remove", function () {
 BookSchema.virtual("zohiogch").get(function () {
   // this.author
   if (!this.author) return "";
+
   let tokens = this.author.split(" ");
   if (tokens.length === 1) tokens = this.author.split(".");
   if (tokens.length === 2) return tokens[1];

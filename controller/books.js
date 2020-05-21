@@ -1,12 +1,12 @@
 const Book = require("../models/Book");
-const User = require("../models/User");
 const path = require("path");
 const Category = require("../models/Category");
 const MyError = require("../utils/myError");
 const asyncHandler = require("express-async-handler");
 const paginate = require("../utils/paginate");
-// api/v1/books
+const User = require("../models/User");
 
+// api/v1/books
 exports.getBooks = asyncHandler(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 5;
@@ -15,8 +15,8 @@ exports.getBooks = asyncHandler(async (req, res, next) => {
 
   ["select", "sort", "page", "limit"].forEach((el) => delete req.query[el]);
 
-  // Pagination
   const pagination = await paginate(page, limit, Book);
+
   const books = await Book.find(req.query, select)
     .populate({
       path: "category",
@@ -33,17 +33,24 @@ exports.getBooks = asyncHandler(async (req, res, next) => {
     pagination,
   });
 });
+
+exports.getUserBooks = asyncHandler(async (req, res, next) => {
+  req.query.createUser = req.userId;
+  return this.getBooks(req, res, next);
+});
+
 // api/v1/categories/:catId/books
 exports.getCategoryBooks = asyncHandler(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 5;
+  const limit = parseInt(req.query.limit) || 2;
   const sort = req.query.sort;
   const select = req.query.select;
 
   ["select", "sort", "page", "limit"].forEach((el) => delete req.query[el]);
 
-  // Pagination
   const pagination = await paginate(page, limit, Book);
+
+  //req.query, select
   const books = await Book.find(
     { ...req.query, category: req.params.categoryId },
     select
@@ -59,6 +66,7 @@ exports.getCategoryBooks = asyncHandler(async (req, res, next) => {
     pagination,
   });
 });
+
 exports.getBook = asyncHandler(async (req, res, next) => {
   const book = await Book.findById(req.params.id);
 
@@ -87,7 +95,7 @@ exports.createBook = asyncHandler(async (req, res, next) => {
   if (!category) {
     throw new MyError(req.body.category + " ID-тэй категори байхгүй!", 400);
   }
-  // protect.js дээр логин хийх үед хэрэглэгчийн id-ийг токеноос авч req.userId -нд олгосон ба үүнийг шинээр createUser талбар үүсгэн бааз руу нэмэхээр бэлтгэнэ.
+
   req.body.createUser = req.userId;
 
   const book = await Book.create(req.body);
@@ -105,27 +113,39 @@ exports.deleteBook = asyncHandler(async (req, res, next) => {
     throw new MyError(req.params.id + " ID-тэй ном байхгүй байна.", 404);
   }
 
+  if (book.createUser.toString() !== req.userId && req.userRole !== "admin") {
+    throw new MyError("Та зөвхөн өөрийнхөө номыг л засварлах эрхтэй", 403);
+  }
+
   const user = await User.findById(req.userId);
+
   book.remove();
 
   res.status(200).json({
     success: true,
     data: book,
-    deleteUserId: req.userId,
-    whoDelete: user.name,
+    whoDeleted: user.name,
   });
 });
 
 exports.updateBook = asyncHandler(async (req, res, next) => {
-  req.body.updateUser = req.userId;
-  const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const book = await Book.findById(req.params.id);
 
   if (!book) {
     throw new MyError(req.params.id + " ID-тэй ном байхгүйээээ.", 400);
   }
+
+  if (book.createUser.toString() !== req.userId && req.userRole !== "admin") {
+    throw new MyError("Та зөвхөн өөрийнхөө номыг л засварлах эрхтэй", 403);
+  }
+
+  req.body.updateUser = req.userId;
+
+  for (let attr in req.body) {
+    book[attr] = req.body[attr];
+  }
+
+  book.save();
 
   res.status(200).json({
     success: true,

@@ -10,13 +10,10 @@ const {
   deleteCategory,
 } = require("../controller/categories");
 
-//api/v1/categories/:id/books
+// api/v1/categories/:id/books
 const { getCategoryBooks } = require("../controller/books");
 router.route("/:categoryId/books").get(getCategoryBooks);
 
-/* const booksRouter = require("./books");
-router.use("/:categoryId/books", booksRouter);
- */
 //"/api/v1/categories"
 router
   .route("/")

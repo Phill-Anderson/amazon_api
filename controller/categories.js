@@ -2,21 +2,22 @@ const Category = require("../models/Category");
 const MyError = require("../utils/myError");
 const asyncHandler = require("express-async-handler");
 const paginate = require("../utils/paginate");
+
 exports.getCategories = asyncHandler(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 100;
+  const limit = parseInt(req.query.limit) || 10;
   const sort = req.query.sort;
   const select = req.query.select;
 
   ["select", "sort", "page", "limit"].forEach((el) => delete req.query[el]);
 
-  // Pagination
   const pagination = await paginate(page, limit, Category);
-  //console.log(req.query, sort, select);
+
   const categories = await Category.find(req.query, select)
     .sort(sort)
     .skip(pagination.start - 1)
     .limit(limit);
+
   res.status(200).json({
     success: true,
     data: categories,
