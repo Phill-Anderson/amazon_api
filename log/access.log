@@ -132,3 +132,8 @@
 ::1 - - [29/Apr/2020:07:42:08 +0000] "POST /api/v1/users/forgot-password HTTP/1.1" 200 66 "-" "PostmanRuntime/7.24.1"
 ::1 - - [22/May/2020:02:55:36 +0000] "POST /api/v1/users/forgot-password HTTP/1.1" 400 127 "-" "PostmanRuntime/7.24.1"
 ::1 - - [22/May/2020:02:56:26 +0000] "POST /api/v1/users/forgot-password HTTP/1.1" 200 66 "-" "PostmanRuntime/7.24.1"
+::1 - - [22/May/2020:03:13:15 +0000] "POST /api/v1/users/forgot-password HTTP/1.1" 200 66 "-" "PostmanRuntime/7.24.1"
+::1 - - [22/May/2020:03:13:18 +0000] "POST /api/v1/users/forgot-password HTTP/1.1" 200 66 "-" "PostmanRuntime/7.24.1"
+::1 - - [22/May/2020:03:13:19 +0000] "POST /api/v1/users/forgot-password HTTP/1.1" 200 66 "-" "PostmanRuntime/7.24.1"
+::1 - - [22/May/2020:03:15:51 +0000] "POST /api/v1/users/forgot-password HTTP/1.1" 200 66 "-" "PostmanRuntime/7.24.1"
+::1 - - [22/May/2020:06:14:56 +0000] "POST /api/v1/users/forgot-password HTTP/1.1" 200 72 "-" "PostmanRuntime/7.24.1"

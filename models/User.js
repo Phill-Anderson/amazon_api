@@ -70,7 +70,12 @@ UserSchema.methods.checkPassword = async function (enteredPassword) {
 UserSchema.methods.generatePasswordChangeToken = function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
 
-  const encrypted = crypto.createHash("sha256").update(resetToken);
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
 
   return resetToken;
 };
