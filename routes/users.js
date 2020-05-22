@@ -9,22 +9,26 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  forgotPassword,
 } = require("../controller/users");
 
 const { getUserBooks } = require("../controller/books");
 
 const router = express.Router();
 
+//"/api/v1/users"
 router.route("/register").post(register);
 router.route("/login").post(login);
+router.route("/forgot-password").post(forgotPassword);
 
-router.use(protect); // энэ мөрөөс доошхи дүрмүүд protect middleware -ийг ашиглана
+router.use(protect);
 
 //"/api/v1/users"
 router
   .route("/")
   .get(authorize("admin"), getUsers)
   .post(authorize("admin"), createUser);
+
 router
   .route("/:id")
   .get(authorize("admin", "operator"), getUser)

@@ -120,3 +120,25 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
     data: user,
   });
 });
+
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
+  if (!req.body.email) {
+    throw new MyError("Та нууц үг сэргээх имэйл хаягаа дамжуулна уу", 400);
+  }
+
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    throw new MyError(req.body.email + " имэйлтэй хэрэглэгч олдсонгүй!", 400);
+  }
+
+  user.resetPasswordToken = user.generatePasswordChangeToken();
+  user.save();
+
+  // Имэйл илгээнэ
+
+  res.status(200).json({
+    success: true,
+    data: user.resetPasswordToken,
+  });
+});
