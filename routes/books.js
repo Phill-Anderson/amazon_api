@@ -25,7 +25,7 @@ router
   .put(protect, authorize("admin", "operator"), updateBook);
 
 router
-  .route("/:id/photo")
+  .route("/:id/upload-photo")
   .put(protect, authorize("admin", "operator"), uploadBookPhoto);
 
 module.exports = router;
