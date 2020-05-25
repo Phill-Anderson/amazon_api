@@ -26,6 +26,19 @@ exports.getCategories = asyncHandler(async (req, res, next) => {
 });
 
 exports.getCategory = asyncHandler(async (req, res, next) => {
+  req.db.teacher.create({
+    id: 3,
+    name: "Сараа",
+    phone: "99558877",
+    password: "123123",
+  });
+  req.db.course.create({
+    id: 1,
+    name: "С++ алгоритм",
+    price: "32000",
+    tailbar: "програмчлалын курс",
+  });
+
   const category = await Category.findById(req.params.id).populate("books");
 
   if (!category) {

@@ -12,9 +12,12 @@ const fileupload = require("express-fileupload");
 const categoriesRoutes = require("./routes/categories");
 const booksRoutes = require("./routes/books");
 const usersRoutes = require("./routes/users");
+const injectDb = require("./middleware/injectDb");
 
 // Аппын тохиргоог process.env рүү ачаалах
 dotenv.config({ path: "./config/config.env" });
+
+const db = require("./config/db-mysql");
 
 const app = express();
 
@@ -30,11 +33,22 @@ var accessLogStream = rfs.createStream("access.log", {
 app.use(express.json());
 app.use(fileupload());
 app.use(logger);
+app.use(injectDb(db));
 app.use(morgan("combined", { stream: accessLogStream }));
 app.use("/api/v1/categories", categoriesRoutes);
 app.use("/api/v1/books", booksRoutes);
 app.use("/api/v1/users", usersRoutes);
 app.use(errorHandler);
+
+db.teacher.belongsToMany(db.course, { through: "teacher_course" });
+db.course.belongsToMany(db.teacher, { through: "teacher_course" });
+
+db.sequelize
+  .sync({ force: true })
+  .then((result) => {
+    console.log("sync hiigdlee...");
+  })
+  .catch((err) => console.log(err));
 
 const server = app.listen(
   process.env.PORT,

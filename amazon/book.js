@@ -1,31 +1,35 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('urdun_comment', {
+	return sequelize.define('book', {
 		id: {
 			type: DataTypes.INTEGER(10).UNSIGNED,
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		urdun_id: {
+		user_id: {
+			type: DataTypes.INTEGER(10).UNSIGNED,
+			allowNull: false,
+			references: {
+				model: 'user',
+				key: 'id'
+			}
+		},
+		une: {
 			type: DataTypes.INTEGER(10).UNSIGNED,
 			allowNull: false
 		},
-		ognoo: {
-			type: DataTypes.DATE,
+		name: {
+			type: DataTypes.STRING(45),
 			allowNull: false
 		},
-		ner: {
-			type: DataTypes.STRING(150),
-			allowNull: true
-		},
-		comment: {
-			type: DataTypes.STRING(450),
-			allowNull: true
+		create_date: {
+			type: DataTypes.DATE,
+			allowNull: false
 		}
 	}, {
-		tableName: 'urdun_comment',
+		tableName: 'book',
 		timestamps: false
 	});
 };

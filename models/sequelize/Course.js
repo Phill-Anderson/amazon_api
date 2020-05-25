@@ -13,11 +13,6 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
       },
 
-      ner: {
-        type: DataTypes.STRING(200),
-        allowNull: false,
-      },
-
       price: {
         type: DataTypes.INTEGER,
         allowNull: null,
