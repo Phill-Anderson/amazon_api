@@ -1,39 +1,43 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('video', {
+	return sequelize.define('comment', {
 		id: {
 			type: DataTypes.INTEGER(10).UNSIGNED,
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		ognoo: {
+		userId: {
+			type: DataTypes.INTEGER(10).UNSIGNED,
+			allowNull: false,
+			references: {
+				model: 'user',
+				key: 'id'
+			}
+		},
+		bookId: {
+			type: DataTypes.INTEGER(10).UNSIGNED,
+			allowNull: false,
+			references: {
+				model: 'book',
+				key: 'id'
+			}
+		},
+		comment: {
+			type: DataTypes.STRING(450),
+			allowNull: false
+		},
+		updatedAt: {
 			type: DataTypes.DATE,
 			allowNull: false
 		},
-		web_id: {
-			type: DataTypes.INTEGER(10).UNSIGNED,
+		createdAt: {
+			type: DataTypes.DATE,
 			allowNull: false
-		},
-		user: {
-			type: DataTypes.STRING(450),
-			allowNull: false
-		},
-		garchig: {
-			type: DataTypes.STRING(450),
-			allowNull: false
-		},
-		video: {
-			type: DataTypes.STRING(600),
-			allowNull: false
-		},
-		tailbar: {
-			type: DataTypes.TEXT,
-			allowNull: true
 		}
 	}, {
-		tableName: 'video',
+		tableName: 'comment',
 		timestamps: false
 	});
 };

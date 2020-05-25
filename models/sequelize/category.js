@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('urdun_category', {
+	return sequelize.define('category', {
 		id: {
 			type: DataTypes.INTEGER(10).UNSIGNED,
 			allowNull: false,
@@ -9,11 +9,19 @@ module.exports = function(sequelize, DataTypes) {
 			autoIncrement: true
 		},
 		ner: {
-			type: DataTypes.STRING(150),
+			type: DataTypes.STRING(45),
+			allowNull: false
+		},
+		aver_price: {
+			type: DataTypes.INTEGER(10).UNSIGNED,
+			allowNull: false
+		},
+		aver_rate: {
+			type: DataTypes.INTEGER(10).UNSIGNED,
 			allowNull: false
 		}
 	}, {
-		tableName: 'urdun_category',
+		tableName: 'category',
 		timestamps: false
 	});
 };

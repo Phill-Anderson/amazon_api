@@ -8,14 +8,6 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		user_id: {
-			type: DataTypes.INTEGER(10).UNSIGNED,
-			allowNull: false,
-			references: {
-				model: 'user',
-				key: 'id'
-			}
-		},
 		une: {
 			type: DataTypes.INTEGER(10).UNSIGNED,
 			allowNull: false

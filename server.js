@@ -40,8 +40,10 @@ app.use("/api/v1/books", booksRoutes);
 app.use("/api/v1/users", usersRoutes);
 app.use(errorHandler);
 
-db.teacher.belongsToMany(db.course, { through: "teacher_course" });
-db.course.belongsToMany(db.teacher, { through: "teacher_course" });
+db.user.belongsToMany(db.book, { through: "comment" });
+db.book.belongsToMany(db.user, { through: "comment" });
+db.category.hasMany(db.book);
+db.book.belongsTo(db.category);
 
 db.sequelize
   .sync({ force: true })
