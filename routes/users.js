@@ -14,6 +14,7 @@ const {
 } = require("../controller/users");
 
 const { getUserBooks } = require("../controller/books");
+const { getUserComments } = require("../controller/comments");
 
 const router = express.Router();
 
@@ -40,5 +41,7 @@ router
 router
   .route("/:id/books")
   .get(authorize("admin", "operator", "user"), getUserBooks);
-
+router
+  .route("/:id/comments")
+  .get(authorize("admin", "operator", "user"), getUserComments);
 module.exports = router;
