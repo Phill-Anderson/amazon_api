@@ -43,7 +43,6 @@ exports.getComment = asyncHandler(async (req, res, next) => {
 });
 exports.getUserComments = asyncHandler(async (req, res, next) => {
   req.query.userId = req.userId;
-  console.log(req.query);
   return await this.getComments(req, res, next);
 });
 exports.createComment = asyncHandler(async (req, res, next) => {

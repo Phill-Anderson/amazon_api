@@ -8,6 +8,7 @@ const errorHandler = require("./middleware/error");
 var morgan = require("morgan");
 const logger = require("./middleware/logger");
 const fileupload = require("express-fileupload");
+
 // Router оруулж ирэх
 const categoriesRoutes = require("./routes/categories");
 const booksRoutes = require("./routes/books");
@@ -17,6 +18,7 @@ const commentsRoutes = require("./routes/comments");
 // Аппын тохиргоог process.env рүү ачаалах
 dotenv.config({ path: "./config/config.env" });
 
+var cors = require("cors");
 const app = express();
 
 connectDB();
@@ -27,8 +29,20 @@ var accessLogStream = rfs.createStream("access.log", {
   path: path.join(__dirname, "log"),
 });
 
+var whitelist = ["http://localhost:5500", "http://localhost:5501"];
+var corsOptions = {
+  origin: function (origin, callback) {
+    // origin нь backEnd service -ийг дуудаж буй тухайн вэб домайн
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS- оор хандахыг хориглосон"));
+    }
+  },
+};
 // Body parser
 app.use(express.json());
+app.use(cors(corsOptions));
 app.use(fileupload());
 app.use(logger);
 app.use(morgan("combined", { stream: accessLogStream }));
